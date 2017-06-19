@@ -1,0 +1,23 @@
+{
+  "name": "documentdb-nodejs-api",
+  "version": "1.0.0",
+  "description": "Starter API to use DocumentDB",
+  "main": "config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexandre-w/DocumentDB-NodeJs-API.git"
+  },
+  "author": "Alexandre-w",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexandre-w/DocumentDB-NodeJs-API/issues"
+  },
+  "homepage": "https://github.com/alexandre-w/DocumentDB-NodeJs-API#readme",
+  "dependencies" : { 
+    "documentdb": "~1.12.0"
+    }
+}
