@@ -11,8 +11,6 @@ var HttpStatusCodes = { NOTFOUND: 404};
 console.log("databaseUrl " + databaseUrl);
 console.log("collectionUrl " + collectionUrl);
 
-createCollectionIfnotExists();
-
 function createDatabaseIfNotExists(){
   console.log("databaseUrl" + databaseUrl);
 
@@ -53,3 +51,34 @@ function createCollectionIfnotExists(){
   });
 
 }
+
+(function createDocumentIfNotExists(documents){
+
+  for (let i = 0; i < documents.length; i++) {
+    let documentUrl = collectionUrl + "/docs/" + documents[i].id;
+
+    console.log("documentUrl" + documentUrl);
+
+    client.readDocument(documentUrl, null, (err, result) => {
+      if (err) {
+        if (err = HttpStatusCodes.NOTFOUND) {
+
+          client.createDocument(collectionUrl, documents[i], (err, created) => {
+            if (err) {
+              console.log('Error on creation' + JSON.stringify(err));
+            }else {
+              console.log('Document created' + JSON.stringify(created));
+            }
+          });
+
+
+        }else {
+          console.log('Error except NOTFOUND' + JSON.stringify(err));
+        }
+      }else {
+        console.log('result is' + JSON.stringify(result)+"\n");
+      }
+    });
+  }
+
+}(config.documents));
