@@ -1,6 +1,6 @@
 var config = {
-    uri= "",
-    primaryKey = "",
+    uri: "",
+    primaryKey: "",
 
     database: {
         "id" : ""
@@ -8,7 +8,18 @@ var config = {
 
     collection: {
         "id": ""
-    }
+    },
+
+    documents: [
+      {
+        "id": "",
+        "name": "john"
+      },
+      {
+        "id": "",
+        "name": "mick"
+      }
+    ]
 }
 
 module.exports = config;

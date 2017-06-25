@@ -11,6 +11,11 @@ var HttpStatusCodes = { NOTFOUND: 404};
 console.log("databaseUrl " + databaseUrl);
 console.log("collectionUrl " + collectionUrl);
 
+//createDatabaseIfNotExists(config.documents);
+//query();
+//replace(config.documents[0])
+//deleteDocument(config.documents[0].id)
+
 function createDatabaseIfNotExists(){
   console.log("databaseUrl" + databaseUrl);
 
@@ -52,7 +57,9 @@ function createCollectionIfnotExists(){
 
 }
 
-(function createDocumentIfNotExists(documents){
+function createDocumentIfNotExists(documents){
+
+  console.log("createDocumentIfNotExists function");
 
   for (let i = 0; i < documents.length; i++) {
     let documentUrl = collectionUrl + "/docs/" + documents[i].id;
@@ -81,4 +88,61 @@ function createCollectionIfnotExists(){
     });
   }
 
-}(config.documents));
+}
+
+function query(){
+  console.log("query function");
+  console.log("collectionUrl" + collectionUrl);
+
+  client.queryDocuments(collectionUrl,
+    "Select * from root r").toArray((err, results) => {
+      if (err) {
+        console.log("collectionUrl" + JSON.stringify(err));
+      }else {
+        for (let result of results) {
+          console.log("Value" + JSON.stringify(result) + "\n");
+        }
+      }
+    });
+
+}
+
+function replace(doc){
+  let documentUrl = collectionUrl+"/docs/"+doc.id;
+
+  console.log(documentUrl);
+  console.log(JSON.stringify(doc));
+
+  doc.name = "new Alex";
+
+  client.replaceDocument(documentUrl, doc, (err, result) => {
+    if (err) {
+      console.log(JSON.stringify(err));
+    }else {
+      console.log(JSON.stringify(doc));
+    }
+  });
+
+}
+
+function deleteDocument(id){
+
+  let documentUrl = collectionUrl+"/docs/"+id;
+
+  client.deleteDocument(documentUrl, (err, result) => {
+    if (err) {
+      console.log(JSON.stringify(err));
+    }else {
+      console.log(JSON.stringify(result));
+    }
+  });
+
+}
+
+function deleteDatabase(){
+  client.deleteDatabase(databaseUrl, (err) => {
+    if (err) {
+      console.log(JSON.stringify(err));
+    }
+  });
+}
